@@ -21,19 +21,27 @@ with the Protégé project.
 ## Installing
 
 `assemble.sh` makes "Protégé 5.6.9 + owlapi-array + this plugin" from the stock platform-independent
-zip, with nothing to build:
+zip:
 
 ```bash
+git clone https://github.com/rdf-array/protege-owl-array.git && cd protege-owl-array
 ./assemble.sh Protege-5.6.9-owl-array
-Protege-5.6.9-owl-array/run.sh        # macOS: run.command; Java 11 or newer
+JAVA_HOME=$(/usr/libexec/java_home -v 21) Protege-5.6.9-owl-array/run.sh   # macOS; elsewhere any JDK 11 or newer
 ```
 
 It downloads `Protege-5.6.9-platform-independent.zip` from protegeproject/protege-distribution's
 release (cached in `~/.cache/protege-owl-array`) and checks its SHA-256 (the digest of the file that
 release served on 2026-10-27; its PGP signature was not checked). It unpacks the zip, replaces
 `bundles/owlapi-osgidistribution.jar` with owlapi-array's bundle and adds
-`plugins/protege-owl-array.jar`. The two jars come from this repository's release v0.1.0. To use
-your own builds instead:
+`plugins/protege-owl-array.jar`. The platform-independent zip brings no Java of its own, so `run.sh`
+needs `JAVA_HOME` (or `java_home=` in `conf/jvm.conf`).
+
+There is no release yet, so both jars are built from source, which needs Git, Maven and a JDK. The
+script fetches owlapi-array at the commit `OWLAPI_COMMIT` names. It installs owlapi-array's modules into
+a Maven repository in the cache, since they carry upstream's coordinates, and packages its OSGi
+bundle. Then it builds the plugin from the checkout the script is in. The first run takes some
+minutes. Later runs reuse the owlapi-array build for that commit. To use jars you have already built
+(or downloaded) instead, name them:
 
 ```bash
 OWLAPI_BUNDLE=../owlapi-array/osgidistribution/target/owlapi-osgidistribution-4.5.29.jar \
@@ -57,6 +65,8 @@ carry upstream's version:
 (cd ../owlapi-array && mvn -pl osgidistribution package -DskipTests -Dmaven.javadoc.skip=true -Dno-javadoc=true -Dgpg.skip -Dmaven.repo.local=$PWD/../.m2-owlapi)
 mvn package -Dmaven.repo.local=$PWD/../.m2-owlapi
 ```
+
+`assemble.sh` does the same with a fresh clone and the Maven repository in its cache.
 
 The bundle (`org.rdfarray.protege`, `Bundle-Category: protege`) exports nothing and embeds nothing.
 It imports `org.semanticweb.owlapi.rdfarray` from owlapi-array's bundle and `org.semanticweb.HermiT`
@@ -101,13 +111,14 @@ documents. It made the screenshots of the FHIR example's §4:
 
 ```bash
 (cd walkthrough && mvn package -Dmaven.repo.local=$PWD/../../.m2-owlapi)
-WALKTHROUGH=walkthrough/target/protege-owl-array-walkthrough-0.1.0.jar OWLAPI_BUNDLE=… PLUGIN=… ./assemble.sh walk
+WALKTHROUGH=walkthrough/target/protege-owl-array-walkthrough-0.1.0.jar ./assemble.sh walk
 CMD_OPTIONS="-Drdfarray.walkthrough=$PWD/out" walk/run.sh /path/to/rdf-array/examples/fhir/subjects.ttl
 ```
 
 ## Status
 
-0.1.0, 2026-10-27: the two reasoners, the assembly script and the walk-through. Against the FHIR
+0.1.0, 2026-10-27: the two reasoners, the assembly script and the walk-through; not released, so
+`assemble.sh` builds from source. Against the FHIR
 example, the OWL-array HermiT answers 24 of 24 queries as expected; the OWL-array ELK answers only
 the 2 that expect nothing, since the data is in blank nodes. Protégé itself is unchanged. A
 `protege-array` fork would be needed only to list sequences where the UI lists individuals (#21) or
