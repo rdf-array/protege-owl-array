@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- The walk-through of rdf-array's examples/fhir in Protégé, as a bundle that drives Protégé from the
+     inside: it does nothing unless Protégé is started with -Drdfarray.walkthrough=<directory>, and then
+     picks the OWL-array HermiT, runs the DL queries in the DL Query tab and writes what the tab shows,
+     with PNGs of the window painted by Swing (no screen-recording permission needed). Not part of the
+     plugin; see ../README.md. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.github.rdf-array</groupId>
+  <artifactId>protege-owl-array-walkthrough</artifactId>
+  <version>0.1.0</version>
+  <packaging>bundle</packaging>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>edu.stanford.protege</groupId>
+      <artifactId>protege-editor-owl</artifactId>
+      <version>5.6.6</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion><groupId>net.sourceforge.owlapi</groupId><artifactId>*</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.owlapi</groupId>
+      <artifactId>owlapi-apibinding</artifactId>
+      <version>4.5.29</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>5.1.9</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>org.rdfarray.protege.walkthrough;singleton:=true</Bundle-SymbolicName>
+            <Bundle-Category>protege</Bundle-Category>
+            <Export-Package>!*</Export-Package>
+            <Private-Package>org.rdfarray.protege.walkthrough</Private-Package>
+            <Import-Package>com.google.common.*;version="0",*</Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

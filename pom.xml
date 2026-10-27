@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- protege-owl-array: the OWL-array reasoner plugins for Protégé 5.6. Compiled against
+     protege-editor-owl 5.6.6 (the last on Maven Central; the reasoner API is unchanged in 5.6.9),
+     owlapi-array's owlapi-apibinding 4.5.29 (mvn install it with -Dmaven.repo.local=…, see
+     owlapi-array's doc/rdf-array.md) and HermiT 1.4.3.456, all provided: at run time they are
+     Protégé's bundles, owlapi-array's osgidistribution bundle and the HermiT plugin. Nothing is
+     embedded. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>io.github.rdf-array</groupId>
+  <artifactId>protege-owl-array</artifactId>
+  <version>0.1.0</version>
+  <packaging>bundle</packaging>
+  <name>OWL-array reasoners for Protégé</name>
+  <description>HermiT and ELK behind owlapi-array's SequenceAwareReasonerFactory, so that Protégé's reasoners know what the OWL-array built-ins mean.</description>
+  <url>https://github.com/rdf-array/protege-owl-array</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>edu.stanford.protege</groupId>
+      <artifactId>protege-editor-owl</artifactId>
+      <version>5.6.6</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion><groupId>net.sourceforge.owlapi</groupId><artifactId>*</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.owlapi</groupId>
+      <artifactId>owlapi-apibinding</artifactId>
+      <version>4.5.29</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.sourceforge.owlapi</groupId>
+      <artifactId>org.semanticweb.hermit</artifactId>
+      <version>1.4.3.456</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion><groupId>net.sourceforge.owlapi</groupId><artifactId>owlapi-distribution</artifactId></exclusion>
+        <exclusion><groupId>net.sourceforge.owlapi</groupId><artifactId>owlapi-osgidistribution</artifactId></exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>5.1.9</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>org.rdfarray.protege;singleton:=true</Bundle-SymbolicName>
+            <Bundle-Name>OWL-array reasoners</Bundle-Name>
+            <Bundle-Category>protege</Bundle-Category>
+            <Bundle-Vendor>rdf-array</Bundle-Vendor>
+            <Bundle-DocURL>https://github.com/rdf-array/protege-owl-array</Bundle-DocURL>
+            <Export-Package>!*</Export-Package>
+            <Private-Package>org.rdfarray.protege</Private-Package>
+            <Import-Package>org.semanticweb.HermiT;version="[1.4,2)",*</Import-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

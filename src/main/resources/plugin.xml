@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <!-- HermiT, the reasoner Protégé bundles, behind owlapi-array's expansion of OWL-array
+         (owl-array.md §6), with the closure axioms -->
+    <extension id="hermit-owl-array" point="org.protege.editor.owl.inference_reasonerfactory">
+        <name value="HermiT 1.4.3 (OWL-array)"/>
+        <label value="HermiT 1.4.3 (OWL-array)"/>
+        <class value="org.rdfarray.protege.HermiTSequenceReasonerInfo"/>
+    </extension>
+    <!-- ELK, for OWL 2 EL, behind the same expansion without the closure axioms, which EL cannot
+         express -->
+    <extension id="elk-owl-array" point="org.protege.editor.owl.inference_reasonerfactory">
+        <name value="ELK 0.6.0 (OWL-array)"/>
+        <label value="ELK 0.6.0 (OWL-array)"/>
+        <class value="org.rdfarray.protege.ElkSequenceReasonerInfo"/>
+    </extension>
+</plugin>

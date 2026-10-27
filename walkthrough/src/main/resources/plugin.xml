@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+    <extension id="walkthrough" point="org.protege.editor.core.application.EditorKitHook">
+        <class value="org.rdfarray.protege.walkthrough.Walkthrough"/>
+        <editorKitId value="OWLEditorKit"/>
+    </extension>
+</plugin>

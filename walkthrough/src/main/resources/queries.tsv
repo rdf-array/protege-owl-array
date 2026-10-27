@@ -1,0 +1,26 @@
+# The DL queries of rdf-array's examples/fhir (README §5, FhirReasoning.java), tab-separated from
+# the instances expected.
+fhir:Observation and fhir:code some sct:Rheumatoid_arthritis-disorder	amy:Obs1 bob:Obs1 sue:Obs1
+fhir:Observation and fhir:code some sct:69896004	amy:Obs1 bob:Obs1 sue:Obs1
+:Observation-of-Rheumatoid_arthritis	amy:Obs1 bob:Obs1 sue:Obs1
+:Observation-of-Seronegative_rheumatoid_arthritis	bob:Obs1
+:Observation-of-Seropositive_rheumatoid_arthritis	sue:Obs1
+fhir:Observation and fhir:code some sct:Arthritis-disorder	amy:Obs1 bob:Obs1 sue:Obs1
+:Observation-of-inflammatory_musculoskeletal_disorder	amy:Obs1 bob:Obs1 sue:Obs1
+fhir:Observation and fhir:code some (sct:Inflammatory_disorder-disorder and sct:role_group-attr some (sct:Associated_morphology-attr some sct:Inflammatory_morphology-morph and sct:Finding_site-attr some sct:Structure_of_musculoskeletal_system-body))	amy:Obs1 bob:Obs1 sue:Obs1
+fhir:Observation and fhir:code some (fhir:coding some (ra:member some :Coding-in-ICD-10))	amy:Obs1 bob:Obs1 sue:Obs1
+fhir:Observation and fhir:code some (fhir:coding some (ra:member some :Coding-of-icd10-M05.9))	sue:Obs1
+:Patient_with_rheumatoid_arthritis	amy:asPatient bob:asPatient sue:asPatient
+fhir:Patient and inverse fhir:l some (inverse fhir:subject some :Observation-of-Seronegative_rheumatoid_arthritis)	bob:asPatient
+:Observation-coded-first-in-SNOMED	amy:Obs1
+fhir:Observation and fhir:code some (fhir:coding some (ra:first some :Coding-in-SNOMED))	amy:Obs1
+fhir:Observation and fhir:code some (fhir:coding some (ra:last some :Coding-in-SNOMED))	amy:Obs2 bob:Obs1
+:Observation-with-several-codings	amy:Obs1 amy:Obs2 bob:Obs1
+fhir:Observation and fhir:code some (fhir:coding some (ra:length value 1))	sue:Obs1
+bp:Observation-of-blood-pressure	amy:Obs2
+bp:Observation-of-elevated-blood-pressure	amy:Obs2
+bp:Two-component-blood-pressure	amy:Obs2
+bp:Complete-blood-pressure	amy:Obs2
+fhir:Observation and fhir:component some (ra:member some (fhir:value some (fhir:value some (fhir:v some xsd:decimal[>= 160]))))	
+fhir:Patient and fhir:name some (ra:member some (fhir:given some (ra:length some xsd:integer[>= 2])))	sue:asPatient
+fhir:Observation and fhir:code some (fhir:coding some ra:EmptySequence)	
