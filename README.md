@@ -79,7 +79,8 @@ Open an ontology, pick one of the two reasoners in the Reasoner menu, start it, 
 tab. [rdf-array's FHIR example](https://rdf-array.github.io/rdf-array/examples/fhir/) is a
 walk-through: the SWAT4LS 2016 FHIR process over today's FHIR RDF, whose repeated elements are lists.
 Open its `subjects.ttl`; its catalog resolves the imports. Its 24 DL queries list the same instances
-in Protégé as through the OWL API (§4 there has the screenshots). What to expect:
+in Protégé as through the OWL API. [The demo](https://rdf-array.github.io/rdf-array/examples/fhir/protege.html)
+walks through it step by step, with screenshots. What to expect:
 
 - **Type names as Protégé shows them.** Protégé names an entity by its `rdfs:label`, so a SNOMED CT
   class is `'sct:Rheumatoid arthritis (disorder)'` in a query, not `sct:Rheumatoid_arthritis-disorder`.
@@ -104,7 +105,8 @@ given. It drives Protégé from the inside when Protégé is started with
 `-Drdfarray.walkthrough=<directory>` (through `CMD_OPTIONS` for `run.sh`), and does nothing
 otherwise. It waits for the FHIR example's `subjects.ttl`, picks "HermiT 1.4.3 (OWL-array)", types
 each query of the example into the DL Query tab (from `walkthrough/src/main/resources/queries.tsv`)
-and checks the instances the tab lists. It tries ELK as well, saves two of the ontologies as Turtle
+and checks the instances the tab lists. It also paints the inferred types of two observations in the
+Individuals tab. It tries ELK as well, saves two of the ontologies as Turtle
 and RDF/XML and reads them back, and exits. Swing paints the window into PNG files, so no
 screen-recording permission is needed. It writes `walkthrough.txt`, the PNGs, and the saved
 documents. It made the screenshots of the FHIR example's §4:

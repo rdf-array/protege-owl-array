@@ -235,6 +235,22 @@ public class Walkthrough extends EditorKitHook {
         }
         log.println("consistent: " + rm.getCurrentReasoner().isConsistent());
         shot("03-reasoner-started");
+        // What the reasoner made of the lists: the inferred types of two observations, shown as
+        // the Individuals tab shows them with the reasoner running.
+        setRenderer("prefixed");
+        selectTab(INDIVIDUALS_TAB);
+        OWLNamedIndividual sueObs1 = mm.getOWLDataFactory().getOWLNamedIndividual(IRI.create(PREFIXES.get("sue:") + "Obs1"));
+        String[] inferredShots = {"03b-amy-obs1-inferred", "03c-sue-obs1-inferred"};
+        OWLNamedIndividual[] observations = {amyObs1, sueObs1};
+        for (int i = 0; i < observations.length; i++) {
+            OWLNamedIndividual ind = observations[i];
+            onEdt(() -> kit.getOWLWorkspace().getOWLSelectionModel().setSelectedEntity(ind));
+            pause(2000);
+            shot(inferredShots[i]);
+            TreeSet<String> types = new TreeSet<>();
+            rm.getCurrentReasoner().getTypes(ind, false).getFlattened().forEach(c -> types.add(mm.getRendering(c)));
+            log.println("  inferred types of " + mm.getRendering(ind) + ": " + types);
+        }
 
         section("4. The DL Query tab, the names typed as the example spells them");
         List<String[]> queries = queries();
