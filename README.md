@@ -79,7 +79,7 @@ Open an ontology, pick one of the two reasoners in the Reasoner menu, start it, 
 tab. [rdf-array's FHIR example](https://rdf-array.github.io/rdf-array/examples/fhir/) is a
 walk-through: the SWAT4LS 2016 FHIR process over today's FHIR RDF, whose repeated elements are lists.
 Open its `subjects.ttl`; its catalog resolves the imports. Its 24 DL queries list the same instances
-in Protégé as through the OWL API. [The demo](https://rdf-array.github.io/rdf-array/examples/fhir/protege.html)
+in Protégé as through the OWL API. [The demo](https://rdf-array.github.io/rdf-array/protege.html)
 walks through it step by step, with screenshots. What to expect:
 
 - **Type names as Protégé shows them.** Protégé names an entity by its `rdfs:label`, so a SNOMED CT
